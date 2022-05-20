@@ -28,15 +28,14 @@ namespace CRUDImpiegati.Controllers
             {
                 var impiegato = new ImpiegatoViewModel
                 {
-                    ID = Convert.ToInt32(reader["ID"]),
+                    ID = Convert.ToInt32(reader["ID"].ToString()),
                     Nome = reader["Nome"].ToString(),
                     Cognome = reader["Cognome"].ToString(),
                     Città = reader["Citta"].ToString(),
-                    Salario = Convert.ToInt32(reader["Salario"]),
+                    Salario = decimal.Parse(reader["Salario"].ToString()),
                 };
                 impiegatiList.Add(impiegato);
             }
-
             return View(impiegatiList);
         }
 

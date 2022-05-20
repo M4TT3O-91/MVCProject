@@ -1,8 +1,40 @@
-﻿@{
-    ViewData["Title"] = "Prova";
+﻿@model IEnumerable<ImpiegatoViewModel>
+
+@{
+    ViewBag.Title = "Impiegati Index";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1 class="display-4">Lista Impiegati</h1>
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Nome)</th>
+        <th>@Html.DisplayNameFor(model => model.Cognome)</th>
+        <th>@Html.DisplayNameFor(model => model.Città)</th>
+        <th>@Html.DisplayNameFor(model => model.Salario)</th>
+    </tr>
+    @if (Model != null && Model.Any())
+    {
+        foreach (var impiegato in Model)
+        {
+            <tr>
+                <td>@Html.DisplayNameFor(impiegato => impiegato.Nome)</td>
+                <td>@Html.DisplayNameFor(impiegato => impiegato.Cognome)</td>
+                <td>@Html.DisplayNameFor(impiegato => impiegato.Città)</td>
+                <td>@Html.DisplayNameFor(impiegato => impiegato.Salario)</td>
+                <td>
+                    @Html.ActionLink("Edit","Edit",new {ID = impiegato.ID})|
+                    @Html.ActionLink("Details","Detail",new {ID = impiegato.ID})
+                    @Html.ActionLink("Delete","Delete",new {ID = impiegato.ID})
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <td colspan="5" class="text-center"> Nessun impiegato disponibile</td>
+    }
+</table>
+
+
+
