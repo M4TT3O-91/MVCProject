@@ -48,7 +48,7 @@ namespace CRUDImpiegati.Controllers
         public IActionResult Delete(int id)
         {
             dBManager.DeleteByID(id);
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         public IActionResult Detail(int id)
