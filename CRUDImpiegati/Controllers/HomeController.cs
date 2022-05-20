@@ -1,6 +1,7 @@
 ﻿using CRUDImpiegati.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Data.SqlClient;
 
 namespace CRUDImpiegati.Controllers
 {
@@ -15,7 +16,28 @@ namespace CRUDImpiegati.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            string connectionString = @"Server = ACADEMYNETUD07\SQLEXPRESS; Database = Impiegato; Trusted_Connection = True; ";
+            List<ImpiegatoViewModel> impiegatiList = new List<ImpiegatoViewModel>();
+            string sql = @"Select * from Impiegato";
+
+            using var connection = new SqlConnection(connectionString);
+            connection.Open();
+            using var command = new SqlCommand(sql, connection);
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                var impiegato = new ImpiegatoViewModel
+                {
+                    ID = Convert.ToInt32(reader["ID"]),
+                    Nome = reader["Nome"].ToString(),
+                    Cognome = reader["Cognome"].ToString(),
+                    Città = reader["Citta"].ToString(),
+                    Salario = Convert.ToInt32(reader["Salario"]),
+                };
+                impiegatiList.Add(impiegato);
+            }
+
+            return View(impiegatiList);
         }
 
         public IActionResult Privacy()
