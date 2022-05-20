@@ -2,41 +2,42 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Data.SqlClient;
+using CRUDImpiegati.Repository;
 
 namespace CRUDImpiegati.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private DBManager dBManager; 
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            dBManager = new DBManager();
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            string connectionString = @"Server = ACADEMYNETUD07\SQLEXPRESS; Database = Impiegati; Trusted_Connection = True; ";
-            List<ImpiegatoViewModel> impiegatiList = new List<ImpiegatoViewModel>();
-            string sql = @"Select * from Impiegato";
+            return View(dBManager.GetAllImpiegati());
+        }
 
-            using var connection = new SqlConnection(connectionString);
-            connection.Open();
-            using var command = new SqlCommand(sql, connection);
-            var reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                var impiegato = new ImpiegatoViewModel
-                {
-                    ID = Convert.ToInt32(reader["ID"].ToString()),
-                    Nome = reader["Nome"].ToString(),
-                    Cognome = reader["Cognome"].ToString(),
-                    Città = reader["Citta"].ToString(),
-                    Salario = Convert.ToDecimal(reader["Salario"].ToString()),
-                };
-                impiegatiList.Add(impiegato);
-            }
-            return View(impiegatiList);
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var impiegato = dBManager.GetAllImpiegati().Where(x => x.ID == id).FirstOrDefault();
+            return View(impiegato);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ImpiegatoViewModel impiegato)
+        {
+            var res = dBManager.GetAllImpiegati().Where(x => x.ID == impiegato.ID).FirstOrDefault();
+            if (res != null)
+                dBManager.EditImpiegato(impiegato);
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()
