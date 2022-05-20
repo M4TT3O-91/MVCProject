@@ -24,7 +24,7 @@ namespace CRUDImpiegati.Repository
                     Nome = reader["Nome"].ToString(),
                     Cognome = reader["Cognome"].ToString(),
                     Città = reader["Citta"].ToString(),
-                    Salario = Convert.ToDecimal(reader["Salario"].ToString()),
+                    Salario = Decimal.Parse(reader["Salario"].ToString()),
                 };
                 impiegatiList.Add(impiegato);
             }
@@ -50,5 +50,43 @@ namespace CRUDImpiegati.Repository
 
             return command.ExecuteNonQuery();
         }
+
+        public int InsertImpiegato(ImpiegatoViewModel impiegato)
+        {
+            string sql = @"INSERT INTO [dbo].[Impiegato]
+           ([Nome]
+           ,[Cognome]
+           ,[Salario]
+           ,[Citta])
+     VALUES
+           (@Nome,@Cognome,@Salario,@Citta)";
+
+            using var connection = new SqlConnection(connectionString);
+            connection.Open();
+            using var command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@Nome", impiegato.Nome);
+            command.Parameters.AddWithValue("@Cognome", impiegato.Cognome);
+            command.Parameters.AddWithValue("@Citta", impiegato.Città);
+            command.Parameters.AddWithValue("@Salario", impiegato.Salario);
+
+            return command.ExecuteNonQuery();
+        }
+        public int DeleteByID(int id)
+        {
+            string sql = @"DELETE FROM Impiegato
+                            WHERE ID =@ID";
+
+            using var connection = new SqlConnection(connectionString);
+            connection.Open();
+            using var command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@ID", id);
+
+            return command.ExecuteNonQuery();
+        }
+
     }
+
+
 }
+
+

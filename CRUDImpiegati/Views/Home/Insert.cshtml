@@ -1,7 +1,7 @@
 ﻿@model ImpiegatoViewModel;
 
 @{
-    ViewBag.Title = "Edit Impiegato";
+    ViewBag.Title = "Aggiungi Impiegato";
 }
 
 @if (ViewBag.Message != null)
@@ -14,9 +14,8 @@
 @using (Html.BeginForm())
 {
     <div class="form-horizontal">
-        <div>Edit Impiegato:</div>
+        <div>Aggiungi Impiegato:</div>
         <hr>
-        @Html.HiddenFor(model => model.ID) @* Per nascondere l'ID' *@
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new {@class = "label col-md-2"})
             <div class="col-md-10">
@@ -58,7 +57,3 @@
 <div>
     @Html.ActionLink("Indietro","Index")
 </div>
-
-
-
-

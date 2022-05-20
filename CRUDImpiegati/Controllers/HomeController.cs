@@ -9,7 +9,7 @@ namespace CRUDImpiegati.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private DBManager dBManager; 
+        private DBManager dBManager;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -39,6 +39,34 @@ namespace CRUDImpiegati.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Insert() {
+            return View();
+        }
+
+        public IActionResult Delete(int id)
+        {
+            dBManager.DeleteByID(id);
+            return View("Index");
+        }
+
+        public IActionResult Detail(int id)
+        {
+            return View(dBManager.GetAllImpiegati().Where(x => x.ID == id).FirstOrDefault());
+        }
+
+        [HttpPost]
+        public IActionResult Insert(ImpiegatoViewModel impiegato)
+        {
+            dBManager.InsertImpiegato(impiegato);
+            return View("Index");
+        }
+
+
+
+
+
 
         public IActionResult Privacy()
         {

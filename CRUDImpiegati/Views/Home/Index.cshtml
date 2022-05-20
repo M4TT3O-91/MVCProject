@@ -5,6 +5,8 @@
 }
 
 <h1 class="display-4">Lista Impiegati</h1>
+<p class="text-right">@Html.ActionLink("Aggiungi nuovo impiegato","Insert")<p/>
+    
 
 <table class="table">
     <tr>
@@ -23,9 +25,9 @@
                 <td>@impiegato.Città</td>
                 <td>@impiegato.Salario</td>
                 <td>
-                    @Html.ActionLink("Edit","Edit",new {ID = impiegato.ID})|
-                    @Html.ActionLink("Details","Detail",new {ID = impiegato.ID})|
-                    @Html.ActionLink("Delete","Delete",new {ID = impiegato.ID})
+                    @Html.ActionLink("Modifica","Edit",new {ID = impiegato.ID})|
+                    @Html.ActionLink("Dettagli","Detail",new {ID = impiegato.ID})|
+                    @Html.ActionLink("Rimuovi","Delete",new {ID = impiegato.ID})
                 </td>
             </tr>
         }

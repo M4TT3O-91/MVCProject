@@ -1,0 +1,14 @@
+﻿@model ImpiegatoViewModel
+
+@{
+    ViewBag.Title = "Dettagli Impiegato";
+}
+
+<div>
+    <h1>Dettagli</h1>
+    <h2>Impiegato: @Html.DisplayFor(model => model.Nome) @Html.DisplayFor(model => model.Cognome)</h2>
+    <ul class="list">
+        <li>@Html.DisplayNameFor(model => model.Città): @Html.DisplayFor(model => model.Città)</li>
+        <li>@Html.DisplayNameFor(model => model.Salario): @Html.DisplayFor(model => model.Salario)</li>
+    </ul>
+</div>
