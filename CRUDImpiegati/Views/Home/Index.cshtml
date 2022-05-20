@@ -18,10 +18,10 @@
         foreach (var impiegato in Model)
         {
             <tr>
-                <td>@Html.DisplayNameFor(impiegato => impiegato.Nome)</td>
-                <td>@Html.DisplayNameFor(impiegato => impiegato.Cognome)</td>
-                <td>@Html.DisplayNameFor(impiegato => impiegato.Città)</td>
-                <td>@Html.DisplayNameFor(impiegato => impiegato.Salario)</td>
+                <td>@impiegato.Nome</td>
+                <td>@impiegato.Cognome</td>
+                <td>@impiegato.Città</td>
+                <td>@impiegato.Salario</td>
                 <td>
                     @Html.ActionLink("Edit","Edit",new {ID = impiegato.ID})|
                     @Html.ActionLink("Details","Detail",new {ID = impiegato.ID})
@@ -32,9 +32,12 @@
     }
     else
     {
-        <td colspan="5" class="text-center"> Nessun impiegato disponibile</td>
+        <tr>
+            <td colspan="5" class="text-center"> Nessun impiegato disponibile</td>
+        </tr>
     }
 </table>
+
 
 
 

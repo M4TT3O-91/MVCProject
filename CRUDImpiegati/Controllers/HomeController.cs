@@ -16,7 +16,7 @@ namespace CRUDImpiegati.Controllers
 
         public IActionResult Index()
         {
-            string connectionString = @"Server = ACADEMYNETUD07\SQLEXPRESS; Database = Impiegato; Trusted_Connection = True; ";
+            string connectionString = @"Server = ACADEMYNETUD07\SQLEXPRESS; Database = Impiegati; Trusted_Connection = True; ";
             List<ImpiegatoViewModel> impiegatiList = new List<ImpiegatoViewModel>();
             string sql = @"Select * from Impiegato";
 
@@ -32,7 +32,7 @@ namespace CRUDImpiegati.Controllers
                     Nome = reader["Nome"].ToString(),
                     Cognome = reader["Cognome"].ToString(),
                     Città = reader["Citta"].ToString(),
-                    Salario = decimal.Parse(reader["Salario"].ToString()),
+                    Salario = Convert.ToDecimal(reader["Salario"].ToString()),
                 };
                 impiegatiList.Add(impiegato);
             }
